@@ -1,0 +1,139 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit; }
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%; }
+
+main {
+  background-color: #fff;
+  width: 40vw; }
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f5f5f5;
+  justify-content: space-around; }
+
+ul {
+  list-style: none; }
+
+.section__container {
+  height: 60vh; }
+
+.todo__actions li {
+  padding-bottom: 1rem;
+  border-bottom: 0.5rem solid transparent; }
+
+.todo__img {
+  width: 100%; }
+
+.todo__links {
+  color: #fff;
+  text-decoration: none; }
+
+.todo__hero {
+  position: relative;
+  font-family: "Work Sans", sans-serif; }
+  .todo__hero h1 {
+    color: #fff;
+    font-size: 4rem;
+    position: absolute;
+    left: 10%;
+    bottom: 40%;
+    letter-spacing: 3px; }
+    .todo__hero h1 span {
+      display: block; }
+
+.todo__container {
+  margin-left: 10%;
+  width: 80%;
+  background-color: #fff;
+  transform: translateY(-4.5rem);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  padding-top: 2.5rem;
+  box-shadow: 0px 0px 9px -3px #00000a; }
+
+.todo__actions {
+  font-family: 'Inter', sans-serif;
+  background-color: #001f25;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.7rem;
+  padding: 1.5rem 2rem 0 2rem;
+  border-radius: 0.5rem; }
+
+label {
+  font-size: 1.7rem; }
+
+.btn-submit {
+  padding: 1rem 2rem;
+  background-color: #33949b;
+  border: none;
+  border-radius: 1rem;
+  color: #011f25;
+  cursor: pointer;
+  transition: all 0.4s; }
+  .btn-submit:hover {
+    background-color: #646464;
+    color: #001f25; }
+
+.todotask__input {
+  margin-bottom: 4rem; }
+
+svg:hover {
+  cursor: pointer; }
+
+.todo__task {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-around;
+  font-weight: 400;
+  font-size: 1.6rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid #bcbcbc; }
+
+.todo__text {
+  width: 72%;
+  position: relative; }
+
+.todo__action--delete {
+  width: 9%; }
+
+.todo__strikethru {
+  position: relative;
+  color: #bcbcbc; }
+
+.todo__strikethru::after {
+  content: '';
+  position: absolute;
+  top: 56%;
+  left: -1%;
+  width: 80%;
+  border-top: solid 1px #bcbcbc; }
+  .todo__strikethru::after__action--check {
+    margin-top: 1rem; }
+
+.todo__task {
+  position: relative; }
+
+.todo__completed {
+  opacity: 0;
+  z-index: -1;
+  position: absolute;
+  left: 2.5%;
+  top: 26%; }
+
+.todo__actions .todo__action {
+  border-bottom-color: #399498; }
