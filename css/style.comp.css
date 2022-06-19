@@ -71,6 +71,10 @@ ul {
   padding: 1rem;
   padding-top: 2.5rem;
   box-shadow: 0px 0px 9px -3px #00000a; }
+  @media only screen and (max-width: 500px) {
+    .todo__container {
+      width: 90%;
+      margin-left: 5%; } }
 
 .todo__actions {
   font-family: 'Inter', sans-serif;
@@ -83,6 +87,9 @@ ul {
   font-size: 1.7rem;
   padding: 1.5rem 2rem 0 2rem;
   border-radius: 0.5rem; }
+  @media only screen and (max-width: 500px) {
+    .todo__actions {
+      font-size: 1.4rem; } }
 
 label {
   display: inline-block;
