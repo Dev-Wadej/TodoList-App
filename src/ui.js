@@ -10,7 +10,7 @@ class UI {
             { id: 0, name: "I want to wash the plate, it's dirty" },
             {
                 id: 1,
-                name: 'I need to do my assignments before it gets much',
+                name: 'I need to do my assignments before ...',
             },
             {
                 id: 2,
