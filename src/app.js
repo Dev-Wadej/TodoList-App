@@ -23,6 +23,12 @@ const eventListeners = () => {
     document
         .querySelector('.todo__actions--3')
         .addEventListener('click', itemCompleted);
+    document
+        .querySelector('.todoGo-to')
+        .addEventListener('click', () => {
+            document.querySelector('#inputtodo').focus();
+        });
+
     // document
     //     .querySelector('.todo__actions--4')
     //     .addEventListener('click', item);
@@ -109,6 +115,9 @@ const itemAll = (e) => {
     // console.log(e.target.parentElement);
 };
 const itemActive = (e) => {
+    // if (e.target.parentElement.classList.contains('todo__action')) {
+    //     console.log();
+    // }
     e.preventDefault();
     if (e.target.parentElement.classList.contains('todo__action')) {
         // console.log('Good God');
@@ -118,6 +127,7 @@ const itemActive = (e) => {
         repeatedDOM();
         e.target.parentElement.classList.add('todo__action');
     }
+    ui.populateItemList(ui.notSelectedYet());
 };
 const itemCompleted = (e) => {
     e.preventDefault();

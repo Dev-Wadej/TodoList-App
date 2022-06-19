@@ -20,6 +20,7 @@ class UI {
         currentItem: false,
         activeArr: [],
         notActiveArr: [],
+        remainingTask: [],
         // };
     };
     //--------Fetch items from data structure
@@ -220,6 +221,18 @@ class UI {
                 console.log(this.dataStructure.activeArr);
             }
         });
+    }
+    notSelectedYet() {
+        // const items = this.dataStructure.listedTasks.map((eachItem) => {
+        //     return eachItem
+        // })
+        // const selectedItems = this.dataStructure.activeArr.map((eachItem) => {
+        //     if (eachItem)
+        // })
+        const intersection = this.dataStructure.listedTasks.filter(
+            (el) => !this.dataStructure.activeArr.includes(el)
+        );
+        return intersection;
     }
 }
 export const ui = new UI();

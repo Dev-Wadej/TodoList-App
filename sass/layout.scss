@@ -33,6 +33,15 @@ sans-serif;
 main {
     background-color: $color-secondary;
     width: 40vw;
+    @media only screen and (max-width: 1200px) {
+        width: 60vw;
+    }
+    @media only screen and (max-width: 900px) {
+        width: 80vw;
+    }
+    @media only screen and (max-width: 600px) {
+        width: 100vw;
+    }
 }
 
 body {
@@ -40,15 +49,18 @@ body {
     height: 100vh;
     background-color: #f5f5f5;
     justify-content: space-around;
+    @media only screen and (max-width: 900px) {
+        flex-direction: column;
+        font-size: 2rem;
+        gap: 3rem;
+    }
 }
 
 ul {
     list-style: none;
 }
 
-.section__container {
-    height: 60vh;
-}
+.section__container {}
 
 .todo__actions li {
     padding-bottom: 1rem;
@@ -103,7 +115,15 @@ ul {
 }
 
 label {
+    display: inline-block;
     font-size: 1.7rem;
+    margin-bottom: 1.5rem;
+}
+
+form {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 0.5rem;
 }
 
 .btn-submit {
@@ -126,6 +146,14 @@ label {
 
 svg:hover {
     cursor: pointer;
+}
+
+form .btn {
+    text-align: center;
+}
+
+aside {
+    font-family: 'Work Sans', sans-serif;
 }
 
 //Task Styling

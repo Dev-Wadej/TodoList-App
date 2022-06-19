@@ -9514,6 +9514,10 @@ var eventListeners = function eventListeners() {
     document.querySelector('.todo__actions--1').addEventListener('click', itemAll);
     document.querySelector('.todo__actions--2').addEventListener('click', itemActive);
     document.querySelector('.todo__actions--3').addEventListener('click', itemCompleted);
+    document.querySelector('.todoGo-to').addEventListener('click', function () {
+        document.querySelector('#inputtodo').focus();
+    });
+
     // document
     //     .querySelector('.todo__actions--4')
     //     .addEventListener('click', item);
@@ -9586,6 +9590,9 @@ var itemAll = function itemAll(e) {
     // console.log(e.target.parentElement);
 };
 var itemActive = function itemActive(e) {
+    // if (e.target.parentElement.classList.contains('todo__action')) {
+    //     console.log();
+    // }
     e.preventDefault();
     if (e.target.parentElement.classList.contains('todo__action')) {
         // console.log('Good God');
@@ -9595,6 +9602,7 @@ var itemActive = function itemActive(e) {
         repeatedDOM();
         e.target.parentElement.classList.add('todo__action');
     }
+    _ui.ui.populateItemList(_ui.ui.notSelectedYet());
 };
 var itemCompleted = function itemCompleted(e) {
     e.preventDefault();
@@ -9657,7 +9665,8 @@ var UI = function () {
             }],
             currentItem: false,
             activeArr: [],
-            notActiveArr: []
+            notActiveArr: [],
+            remainingTask: []
             // };
         };
 
@@ -9778,6 +9787,22 @@ var UI = function () {
                     console.log(_this2.dataStructure.activeArr);
                 }
             });
+        }
+    }, {
+        key: 'notSelectedYet',
+        value: function notSelectedYet() {
+            var _this3 = this;
+
+            // const items = this.dataStructure.listedTasks.map((eachItem) => {
+            //     return eachItem
+            // })
+            // const selectedItems = this.dataStructure.activeArr.map((eachItem) => {
+            //     if (eachItem)
+            // })
+            var intersection = this.dataStructure.listedTasks.filter(function (el) {
+                return !_this3.dataStructure.activeArr.includes(el);
+            });
+            return intersection;
         }
     }]);
 

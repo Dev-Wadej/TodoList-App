@@ -32,11 +32,12 @@
                         <a class="todo__links" href="">Completed</a>
                     </li>
                     <li class="todo__actions--4">
-                        <a class="todo__links" href="">+ New task</a>
-                    </li>
-                </ul>
-                <ul class="todo__tasks">
-                    <!-- <li class="todo__task">
+                        <a class="todo__links todoGo-to" href="#gotoPage">+ New task</a
+              >
+            </li>
+          </ul>
+          <ul class="todo__tasks">
+            <!-- <li class="todo__task">
                         <div class="todo__action--check" data-id="1">
                             <svg width="19" height="19" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
@@ -139,26 +140,40 @@
                 </svg>
                         </div>
                     </li> -->
-                </ul>
-            </section>
+          </ul>
         </section>
+      </section>
     </main>
-    <aside class="todo__input">
-        <form action="">
-            <div class="todotask__input">
-                <label for="inputtodo">Task Todo</label><br />
-                <textarea name="Task todo" id="inputtodo" cols="30" rows="2"></textarea>
-            </div>
-            <div class="todotask__description">
-                <label for="inputdesc">Task Description</label><br />
-                <textarea name="Task todo" id="inputdesc" cols="30" rows="10"></textarea>
-            </div>
-            <br /><br />
-            <button class="btn-submit">Submit</button>
-        </form>
+    <aside class="todo__input" id="gotoPage">
+      <form action="">
+        <div class="todotask__input">
+          <label for="inputtodo">Task Todo</label><br />
+          <textarea
+            placeholder="Enter the title of the task"
+            name="Task todo"
+            id="inputtodo"
+            cols="30"
+            rows="2"
+            autofocus
+          ></textarea>
+        </div>
+        <div class="todotask__description">
+          <label for="inputdesc">Task Description</label><br />
+          <textarea
+            placeholder="Give a  description"
+            name="Task todo"
+            id="inputdesc"
+            cols="30"
+            rows="10"
+          ></textarea>
+        </div>
+        <br /><br />
+        <div class="btn">
+          <button class="btn-submit">Submit</button>
+        </div>
+      </form>
     </aside>
 
     <script src="build/app.bundle.js"></script>
-</body>
-
+  </body>
 </html>
