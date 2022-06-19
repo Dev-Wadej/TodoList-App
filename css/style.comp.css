@@ -43,7 +43,8 @@ ul {
   border-bottom: 0.5rem solid transparent; }
 
 .todo__img {
-  width: 100%; }
+  width: 100%;
+  height: 40vh; }
 
 .todo__links {
   color: #fff;
@@ -59,6 +60,12 @@ ul {
     left: 10%;
     bottom: 40%;
     letter-spacing: 3px; }
+    @media only screen and (max-width: 500px) {
+      .todo__hero h1 {
+        font-size: 3.5rem;
+        position: absolute;
+        left: 10%;
+        bottom: 27%; } }
     .todo__hero h1 span {
       display: block; }
 
@@ -89,7 +96,8 @@ ul {
   border-radius: 0.5rem; }
   @media only screen and (max-width: 500px) {
     .todo__actions {
-      font-size: 1.4rem; } }
+      font-size: 1.4rem;
+      font-weight: bold; } }
 
 label {
   display: inline-block;

@@ -70,6 +70,7 @@ ul {
 .todo {
     &__img {
         width: 100%;
+        height: 40vh;
     }
     &__links {
         color: $color-secondary;
@@ -86,6 +87,12 @@ ul {
             left: 10%;
             bottom: 40%;
             letter-spacing: 3px;
+            @media only screen and (max-width: 500px) {
+                font-size: 3.5rem;
+                position: absolute;
+                left: 10%;
+                bottom: 27%;
+            }
             span {
                 display: block;
             }
@@ -117,6 +124,7 @@ ul {
         // margin: 0 1rem 0 0;
         @media only screen and (max-width: 500px) {
             font-size: 1.4rem;
+            font-weight: bold;
         }
     }
 }
