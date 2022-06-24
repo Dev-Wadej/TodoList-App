@@ -1,22 +1,13 @@
 class UI {
-    constructor(id, name, taskdesc) {
+    constructor(id, name, taskdesc, currentItemSelected) {
         this.id = id;
         this.name = name;
         this.desc = taskdesc;
+        this.currentItemSelected = currentItemSelected;
     }
     dataStructure = {
         // return {
-        listedTasks: [
-            { id: 0, name: "I want to wash the plate, it's dirty" },
-            {
-                id: 1,
-                name: 'I need to do my assignments before ...',
-            },
-            {
-                id: 2,
-                name: 'I as  well need to  read and practice a lot',
-            },
-        ],
+        listedTasks: [],
         currentItem: false,
         activeArr: [],
         notActiveArr: [],
@@ -98,11 +89,12 @@ class UI {
         } else {
             ID = 0;
         }
+        let currentItemSelected = false;
 
         // Create new item
-        let newItem = new UI(ID, taskTodo, taskDesc);
-        console.log(newItem);
-        console.log(this.dataStructure.listedTasks);
+        let newItem = new UI(ID, taskTodo, taskDesc, currentItemSelected);
+
+        console.log(this.dataStructure);
 
         // Add to items array
         this.dataStructure.listedTasks.push(newItem);
@@ -195,9 +187,11 @@ class UI {
         // let activeArr = [];
         this.dataStructure.listedTasks.map((eachItem) => {
             if (id === eachItem.id) {
-                this.dataStructure.activeArr.push(eachItem);
+                if (!this.dataStructure.activeArr.includes(eachItem)) {
+                    this.dataStructure.activeArr.push(eachItem);
+                }
                 const index = ids.indexOf(id);
-                console.log(this.dataStructure.activeArr);
+                // console.log(this.dataStructure.activeArr);
             }
         });
         // console.log(ids);

@@ -9651,18 +9651,12 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var UI = function () {
-    function UI(id, name, taskdesc) {
+    function UI(id, name, taskdesc, currentItemSelected) {
         _classCallCheck(this, UI);
 
         this.dataStructure = {
             // return {
-            listedTasks: [{ id: 0, name: "I want to wash the plate, it's dirty" }, {
-                id: 1,
-                name: 'I need to do my assignments before ...'
-            }, {
-                id: 2,
-                name: 'I as  well need to  read and practice a lot'
-            }],
+            listedTasks: [],
             currentItem: false,
             activeArr: [],
             notActiveArr: [],
@@ -9673,6 +9667,7 @@ var UI = function () {
         this.id = id;
         this.name = name;
         this.desc = taskdesc;
+        this.currentItemSelected = currentItemSelected;
     }
 
     _createClass(UI, [{
@@ -9703,11 +9698,12 @@ var UI = function () {
             } else {
                 ID = 0;
             }
+            var currentItemSelected = false;
 
             // Create new item
-            var newItem = new UI(ID, taskTodo, taskDesc);
-            console.log(newItem);
-            console.log(this.dataStructure.listedTasks);
+            var newItem = new UI(ID, taskTodo, taskDesc, currentItemSelected);
+
+            console.log(this.dataStructure);
 
             // Add to items array
             this.dataStructure.listedTasks.push(newItem);
@@ -9757,9 +9753,11 @@ var UI = function () {
             // let activeArr = [];
             this.dataStructure.listedTasks.map(function (eachItem) {
                 if (id === eachItem.id) {
-                    _this.dataStructure.activeArr.push(eachItem);
+                    if (!_this.dataStructure.activeArr.includes(eachItem)) {
+                        _this.dataStructure.activeArr.push(eachItem);
+                    }
                     var index = ids.indexOf(id);
-                    console.log(_this.dataStructure.activeArr);
+                    // console.log(this.dataStructure.activeArr);
                 }
             });
             // console.log(ids);
