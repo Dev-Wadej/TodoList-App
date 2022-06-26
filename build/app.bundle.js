@@ -9732,6 +9732,7 @@ var UI = function () {
             });
             var index = ids.indexOf(id);
             this.dataStructure.listedTasks.splice(index, 1);
+            this.dataStructure.activeArr.splice(index, 1);
             // console.log(this.dataStructure.listedTasks);
         }
     }, {

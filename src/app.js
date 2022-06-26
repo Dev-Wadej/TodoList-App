@@ -28,6 +28,9 @@ const eventListeners = () => {
         .addEventListener('click', () => {
             document.querySelector('#inputtodo').focus();
         });
+    document
+        .querySelector('.todo__tasks')
+        .addEventListener('click', itemDeleteChecked);
 
     // document
     //     .querySelector('.todo__actions--4')
@@ -57,9 +60,25 @@ const itemDeleteSubmit = (e) => {
         const idArr = e.target.parentElement.parentElement.id.split('-');
         const idtarget = parseInt(idArr[1]);
         ui.deleteItem(idtarget);
+        // console.log(ui.dataStructure.listedTasks);
+        // console.log(ui.dataStructure.activeArr);
         e.target.parentElement.parentElement.remove();
     }
     // console.log(document.querySelector('.todo__tasks')[selectedIndex]);
+};
+const itemDeleteChecked = (e) => {
+    if (
+        e.target.parentElement.classList.contains(
+            'todo__action--delete'
+        ) &&
+        e.target.parentElement.previousElementSibling.classList.contains(
+            'todo__strikethru'
+        )
+    ) {
+        const idArr = e.target.parentElement.parentElement.id.split('-');
+        const idtarget = parseInt(idArr[1]);
+        ui.deleteItemChecked(idtarget);
+    }
 };
 const itemChecked = (e) => {
     // console.log(e.target.parentElement.nextElementSibling);
@@ -89,7 +108,7 @@ const itemUnchecked = (e) => {
             'todo__strikethru'
         );
 
-        console.log(e.target.parentElement.parentElement.parentElement);
+        // console.log(e.target.parentElement.parentElement.parentElement);
         e.target.parentElement.parentElement.style.zIndex = '-2';
         e.target.parentElement.parentElement.style.opacity = '0';
         ui.unSelectedItem(
@@ -119,6 +138,7 @@ const itemActive = (e) => {
     //     console.log();
     // }
     e.preventDefault();
+
     if (e.target.parentElement.classList.contains('todo__action')) {
         // console.log('Good God');
         e.target.parentElement.classList.remove('todo__action');

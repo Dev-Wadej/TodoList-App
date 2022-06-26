@@ -94,7 +94,7 @@ class UI {
         // Create new item
         let newItem = new UI(ID, taskTodo, taskDesc, currentItemSelected);
 
-        console.log(this.dataStructure);
+        // console.log(this.dataStructure);
 
         // Add to items array
         this.dataStructure.listedTasks.push(newItem);
@@ -170,7 +170,14 @@ class UI {
         });
         const index = ids.indexOf(id);
         this.dataStructure.listedTasks.splice(index, 1);
-        // console.log(this.dataStructure.listedTasks);
+    }
+    deleteItemChecked(id) {
+        /// Remove From Completed Array
+        const idsActive = this.dataStructure.activeArr.map((item) => {
+            return item.id;
+        });
+        const indexActive = idsActive.indexOf(id);
+        this.dataStructure.activeArr.splice(indexActive, 1);
     }
     shortenText(text, max) {
         return text && text.length > max ?
@@ -190,15 +197,8 @@ class UI {
                 if (!this.dataStructure.activeArr.includes(eachItem)) {
                     this.dataStructure.activeArr.push(eachItem);
                 }
-                const index = ids.indexOf(id);
-                // console.log(this.dataStructure.activeArr);
             }
         });
-        // console.log(ids);
-        if (val) {
-            this.dataStructure.currentItem = true;
-            // console.log(this.dataStructure);
-        }
     }
     unSelectedItem(val) {
         let id = parseInt(val.split('-')[1]);
@@ -207,25 +207,21 @@ class UI {
             return item.id;
         });
 
-        // let activeArr = [];
         this.dataStructure.listedTasks.map((eachItem) => {
             if (id === eachItem.id) {
                 const index = ids.indexOf(id);
                 this.dataStructure.activeArr.splice(index, 1);
-                console.log(this.dataStructure.activeArr);
+                // console.log(this.dataStructure.activeArr);
             }
         });
     }
     notSelectedYet() {
-        // const items = this.dataStructure.listedTasks.map((eachItem) => {
-        //     return eachItem
-        // })
-        // const selectedItems = this.dataStructure.activeArr.map((eachItem) => {
-        //     if (eachItem)
-        // })
         const intersection = this.dataStructure.listedTasks.filter(
-            (el) => !this.dataStructure.activeArr.includes(el)
+            (el) => {
+                return !this.dataStructure.activeArr.includes(el);
+            }
         );
+        // console.log(intersection);
         return intersection;
     }
 }
