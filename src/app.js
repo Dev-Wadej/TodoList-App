@@ -1,124 +1,181 @@
-import List from "./models/list";
-import Order from './models/Order'
-import { elements } from "./views/base";
-import { clearView, pagination } from "./views/list.view";
-import { orderView, deleteOrderView, updateViewCounter } from "./views/orderView";
+import { ui } from './ui';
 
+//////------------Event Listeners
+const eventListeners = () => {
+    document
+        .querySelector('.btn-submit')
+        .addEventListener('click', taskSubmitted);
+    document
+        .querySelector('.todo__tasks')
+        .addEventListener('click', itemDeleteSubmit);
+    document
+        .querySelector('.todo__tasks')
+        .addEventListener('click', itemChecked);
+    document
+        .querySelector('.todo__tasks')
+        .addEventListener('click', itemUnchecked);
+    document
+        .querySelector('.todo__actions--1')
+        .addEventListener('click', itemAll);
+    document
+        .querySelector('.todo__actions--2')
+        .addEventListener('click', itemActive);
+    document
+        .querySelector('.todo__actions--3')
+        .addEventListener('click', itemCompleted);
+    document
+        .querySelector('.todoGo-to')
+        .addEventListener('click', () => {
+            document.querySelector('#inputtodo').focus();
+        });
+    document
+        .querySelector('.todo__tasks')
+        .addEventListener('click', itemDeleteChecked);
 
+    // document
+    //     .querySelector('.todo__actions--4')
+    //     .addEventListener('click', item);
+};
 
-// CONTROLLER M
-/** Global State of the app
- * - list Object
- * - clicked item to order
- * **/
-
-
-const state = {};
-window.state = state
-
-
-//--1 Get Item to be rendered to view from the models to the view
-
-const listItem = () => {
-        state.listStruc = new List()
-        state.listStruc.loadItem()
-
-        //--- Concern with populating the list or say the product showcase of the company
-        pagination(state.listStruc.list)
-
+const taskSubmitted = (e) => {
+    e.preventDefault();
+    const taskTodo = document.querySelector('#inputtodo').value;
+    const taskDesc = document.querySelector('#inputdesc').value;
+    if (taskDesc && taskTodo) {
+        ui.addItems(taskTodo, taskDesc);
+        uiClear();
+    } else {
+        alert('Both fields cannot be empty');
     }
-    /// Initializes the Orders model 
-state.order = new Order()
-
-
-
-
-
-
-
-//======Updates the counter inside the models
-const updateCounter = (id, type) => {
-    state.order.updateCounter(id, type)
-
-}
-
-
-
-
-
-// Event Listener for the adding to the order menu, i.e the right hand side of the setup
-elements.list.addEventListener('click', (e) => {
-
-    //--- Basically algorithm to get the dataset stored in the html structure
-    const orderGoto = e.target.closest('.cart-card')
-    if (orderGoto) {
-        const selectedItem = state.listStruc.list.find((el => el.id === +orderGoto.dataset.goto))
-        const { image_url, price, id, title } = selectedItem
-
-
-
-        //--- Adds item to the order structure
-        const orderEachItem = state.order.addItem(id, price, title, image_url)
-
-        //--- Implement the Order view
-        if (orderEachItem) {
-            orderView(orderEachItem)
-        }
+};
+const uiClear = () => {
+    document.querySelector('#inputtodo').value = '';
+    document.querySelector('#inputdesc').value = '';
+};
+const itemDeleteSubmit = (e) => {
+    if (
+        e.target.parentElement.classList.contains('todo__action--delete')
+    ) {
+        // console.log('didididi');
+        const idArr = e.target.parentElement.parentElement.id.split('-');
+        const idtarget = parseInt(idArr[1]);
+        ui.deleteItem(idtarget);
+        // console.log(ui.dataStructure.listedTasks);
+        // console.log(ui.dataStructure.activeArr);
+        e.target.parentElement.parentElement.remove();
     }
-
-
-})
-
-//================================================
-elements.order.addEventListener('click', (e) => {
-        if (e.target.closest('.cart-content-delete')) {
-            const selectedData = e.target.parentElement.parentElement.parentElement
-            if (state.order) state.order.deleteItem(selectedData.dataset.order)
-            deleteOrderView(selectedData)
-        }
-
-        ////============================================
-
-
-        let selectedForUpdate;
-
-        //=======Logic for decrement of the order
-        if (e.target.closest('.counter-minus')) {
-            selectedForUpdate = +e.target.parentElement.parentElement.parentElement.parentElement.dataset.order
-            updateCounter(selectedForUpdate, 'dec')
-
-            state.order.order.find((el) => {
-                if (el.id === selectedForUpdate) updateViewCounter(el, e.target.nextElementSibling)
-            })
-
-        }
-        //======= Logic for Increment of the Order
-        if (e.target.closest('.counter-plus')) {
-            selectedForUpdate = +e.target.parentElement.parentElement.parentElement.parentElement.dataset.order
-            updateCounter(selectedForUpdate, 'inc')
-
-            state.order.order.find((el) => {
-                if (el.id === selectedForUpdate) updateViewCounter(el, e.target.previousElementSibling)
-            })
-
-        }
-    })
-    /////======== Pagonation of the page  ====
-elements.pagesView.addEventListener('click', (e) => {
-    const goto = e.target.closest('.pagination')
-    if (goto) {
-        const gotoNum = goto.dataset.goto
-        clearView()
-        pagination(state.listStruc.list, gotoNum)
+    // console.log(document.querySelector('.todo__tasks')[selectedIndex]);
+};
+const itemDeleteChecked = (e) => {
+    if (
+        e.target.parentElement.classList.contains(
+            'todo__action--delete'
+        ) &&
+        e.target.parentElement.previousElementSibling.classList.contains(
+            'todo__strikethru'
+        )
+    ) {
+        const idArr = e.target.parentElement.parentElement.id.split('-');
+        const idtarget = parseInt(idArr[1]);
+        ui.deleteItemChecked(idtarget);
     }
-})
+};
+const itemChecked = (e) => {
+    // console.log(e.target.parentElement.nextElementSibling);
+    if (
+        e.target.parentElement.classList.contains('todo__action--check')
+    ) {
+        ui.selectedItem(e.target.parentElement.parentElement.id);
+        e.target.parentElement.nextElementSibling.style.zIndex = '1';
+        e.target.parentElement.nextElementSibling.style.opacity = '1';
+        e.target.parentElement.nextElementSibling.nextElementSibling.classList.add(
+            'todo__strikethru'
+        );
+    }
+    // if (e.target.parentElement.classList.contains('todo__strikethru')) {
+    //     // console.log('Great');
+    //     ui.unSelectedItem(e.target.parentElement.parentElement.id);
+    // }
+    return e.target.parentElement;
+};
+const itemUnchecked = (e) => {
+    if (
+        e.target.parentElement.parentElement.classList.contains(
+            'todo__completed'
+        )
+    ) {
+        e.target.parentElement.parentElement.nextElementSibling.classList.remove(
+            'todo__strikethru'
+        );
 
+        // console.log(e.target.parentElement.parentElement.parentElement);
+        e.target.parentElement.parentElement.style.zIndex = '-2';
+        e.target.parentElement.parentElement.style.opacity = '0';
+        ui.unSelectedItem(
+            e.target.parentElement.parentElement.parentElement.id
+        );
 
+        // console.log(
+        //     e.target.parentElement.parentElement.previousElementSibling
+        // );
+    }
+};
+const itemAll = (e) => {
+    e.preventDefault();
+    if (e.target.parentElement.classList.contains('todo__action')) {
+        // console.log('Good God');
+        e.target.parentElement.classList.remove('todo__action');
+    } else if (!e.target.parentElement.classList.contains('todo__action')) {
+        e.target.parentElement.classList.add('todo__action');
+        repeatedDOM();
+        e.target.parentElement.classList.add('todo__action');
+        ui.populateItemList(ui.dataStructure.listedTasks);
+    }
+    // console.log(e.target.parentElement);
+};
+const itemActive = (e) => {
+    // if (e.target.parentElement.classList.contains('todo__action')) {
+    //     console.log();
+    // }
+    e.preventDefault();
 
+    if (e.target.parentElement.classList.contains('todo__action')) {
+        // console.log('Good God');
+        e.target.parentElement.classList.remove('todo__action');
+    } else if (!e.target.parentElement.classList.contains('todo__action')) {
+        e.target.parentElement.classList.add('todo__action');
+        repeatedDOM();
+        e.target.parentElement.classList.add('todo__action');
+    }
+    ui.populateItemList(ui.notSelectedYet());
+};
+const itemCompleted = (e) => {
+    e.preventDefault();
+    let liDOMS = document.getElementsByClassName('todo__task');
 
+    liDOMS = Array.from(liDOMS);
+    let activeRender = ui.dataStructure.activeArr;
 
+    // ui.selectedItem(liDOMS, e.target.parentElement);
 
-
-
-////---- Loads the items of concern on window load
-window.addEventListener('load', listItem)
+    // console.log(liDOMS);
+    if (e.target.parentElement.classList.contains('todo__action')) {
+        // console.log('Good God');
+        e.target.parentElement.classList.remove('todo__action');
+    } else if (!e.target.parentElement.classList.contains('todo__action')) {
+        e.target.parentElement.classList.add('todo__action');
+        repeatedDOM();
+        e.target.parentElement.classList.add('todo__action');
+        ui.populateItemList(activeRender);
+    }
+};
+const repeatedDOM = () => {
+    let activeState = document.querySelectorAll('.todo__action');
+    activeState = Array.from(activeState);
+    activeState.forEach((eachItem) => {
+        // console.log(eachItem);
+        eachItem.classList.remove('todo__action');
+    });
+};
+ui.getTasks();
+eventListeners();
