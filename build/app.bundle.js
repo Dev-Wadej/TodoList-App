@@ -9517,6 +9517,7 @@ var eventListeners = function eventListeners() {
     document.querySelector('.todoGo-to').addEventListener('click', function () {
         document.querySelector('#inputtodo').focus();
     });
+    document.querySelector('.todo__tasks').addEventListener('click', itemDeleteChecked);
 
     // document
     //     .querySelector('.todo__actions--4')
@@ -9544,9 +9545,18 @@ var itemDeleteSubmit = function itemDeleteSubmit(e) {
         var idArr = e.target.parentElement.parentElement.id.split('-');
         var idtarget = parseInt(idArr[1]);
         _ui.ui.deleteItem(idtarget);
+        // console.log(ui.dataStructure.listedTasks);
+        // console.log(ui.dataStructure.activeArr);
         e.target.parentElement.parentElement.remove();
     }
     // console.log(document.querySelector('.todo__tasks')[selectedIndex]);
+};
+var itemDeleteChecked = function itemDeleteChecked(e) {
+    if (e.target.parentElement.classList.contains('todo__action--delete') && e.target.parentElement.previousElementSibling.classList.contains('todo__strikethru')) {
+        var idArr = e.target.parentElement.parentElement.id.split('-');
+        var idtarget = parseInt(idArr[1]);
+        _ui.ui.deleteItemChecked(idtarget);
+    }
 };
 var itemChecked = function itemChecked(e) {
     // console.log(e.target.parentElement.nextElementSibling);
@@ -9566,7 +9576,7 @@ var itemUnchecked = function itemUnchecked(e) {
     if (e.target.parentElement.parentElement.classList.contains('todo__completed')) {
         e.target.parentElement.parentElement.nextElementSibling.classList.remove('todo__strikethru');
 
-        console.log(e.target.parentElement.parentElement.parentElement);
+        // console.log(e.target.parentElement.parentElement.parentElement);
         e.target.parentElement.parentElement.style.zIndex = '-2';
         e.target.parentElement.parentElement.style.opacity = '0';
         _ui.ui.unSelectedItem(e.target.parentElement.parentElement.parentElement.id);
@@ -9594,6 +9604,7 @@ var itemActive = function itemActive(e) {
     //     console.log();
     // }
     e.preventDefault();
+
     if (e.target.parentElement.classList.contains('todo__action')) {
         // console.log('Good God');
         e.target.parentElement.classList.remove('todo__action');
@@ -9703,7 +9714,7 @@ var UI = function () {
             // Create new item
             var newItem = new UI(ID, taskTodo, taskDesc, currentItemSelected);
 
-            console.log(this.dataStructure);
+            // console.log(this.dataStructure);
 
             // Add to items array
             this.dataStructure.listedTasks.push(newItem);
@@ -9732,8 +9743,16 @@ var UI = function () {
             });
             var index = ids.indexOf(id);
             this.dataStructure.listedTasks.splice(index, 1);
-            this.dataStructure.activeArr.splice(index, 1);
-            // console.log(this.dataStructure.listedTasks);
+        }
+    }, {
+        key: 'deleteItemChecked',
+        value: function deleteItemChecked(id) {
+            /// Remove From Completed Array
+            var idsActive = this.dataStructure.activeArr.map(function (item) {
+                return item.id;
+            });
+            var indexActive = idsActive.indexOf(id);
+            this.dataStructure.activeArr.splice(indexActive, 1);
         }
     }, {
         key: 'shortenText',
@@ -9757,15 +9776,8 @@ var UI = function () {
                     if (!_this.dataStructure.activeArr.includes(eachItem)) {
                         _this.dataStructure.activeArr.push(eachItem);
                     }
-                    var index = ids.indexOf(id);
-                    // console.log(this.dataStructure.activeArr);
                 }
             });
-            // console.log(ids);
-            if (val) {
-                this.dataStructure.currentItem = true;
-                // console.log(this.dataStructure);
-            }
         }
     }, {
         key: 'unSelectedItem',
@@ -9778,12 +9790,11 @@ var UI = function () {
                 return item.id;
             });
 
-            // let activeArr = [];
             this.dataStructure.listedTasks.map(function (eachItem) {
                 if (id === eachItem.id) {
                     var index = ids.indexOf(id);
                     _this2.dataStructure.activeArr.splice(index, 1);
-                    console.log(_this2.dataStructure.activeArr);
+                    // console.log(this.dataStructure.activeArr);
                 }
             });
         }
@@ -9792,15 +9803,10 @@ var UI = function () {
         value: function notSelectedYet() {
             var _this3 = this;
 
-            // const items = this.dataStructure.listedTasks.map((eachItem) => {
-            //     return eachItem
-            // })
-            // const selectedItems = this.dataStructure.activeArr.map((eachItem) => {
-            //     if (eachItem)
-            // })
             var intersection = this.dataStructure.listedTasks.filter(function (el) {
                 return !_this3.dataStructure.activeArr.includes(el);
             });
+            // console.log(intersection);
             return intersection;
         }
     }]);
